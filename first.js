@@ -9,8 +9,10 @@ http.createServer(async function (req, res) {
     const resp = await axios.get(stringReq)
     const data = resp.data
     const { status, value } = data;
+
     if (status && status === 'OK') {
         const browser = await puppeteer.connect({ browserWSEndpoint: value, defaultViewport: null });
+        console.debug('did we get the browser?', browser.isConnected())
         const page = await browser.newPage();
         const liResp = await page.goto('https://linkedin.com');
         // await page.screenshot({ path: `/home/${process.env.USER}/Desktop/multiloginScreenshot.png` });
