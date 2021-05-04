@@ -18,9 +18,9 @@ http.createServer(async function (req, res) {
         const liResp = await page.goto('https://linkedin.com');
         await page.waitForNavigation();
         console.debug('DO WE GET SOMOETHING FROM LIRESP', liResp.url())
-        await browser.close();
         res.writeHead(200, { 'Content-Type': 'text/plain' });
         res.end(JSON.stringify({ statusLI: liResp.url()}));
+        await browser.close();
     } else {
         res.writeHead(200, { 'Content-Type': 'text/plain' });
         res.end(JSON.stringify({ errorMessage: 'Multilogin is unavailable' }));
