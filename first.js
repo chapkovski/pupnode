@@ -14,11 +14,13 @@ http.createServer(async function (req, res) {
         const browser = await puppeteer.connect({ browserWSEndpoint: value, defaultViewport: null });
         console.debug('did we get the browser?', browser.isConnected())
         const page = await browser.newPage();
+        console.debug('NEW PAGE GOT', page.url())
         const liResp = await page.goto('https://linkedin.com');
-        // await page.screenshot({ path: `/home/${process.env.USER}/Desktop/multiloginScreenshot.png` });
+        await page.waitForNavigation();
+        console.debug('DO WE GET SOMOETHING FROM LIRESP', liResp.url())
         await browser.close();
         res.writeHead(200, { 'Content-Type': 'text/plain' });
-        res.end(JSON.stringify({ statusLI: liResp.headers.status }));
+        res.end(JSON.stringify({ statusLI: liResp.url()}));
     } else {
         res.writeHead(200, { 'Content-Type': 'text/plain' });
         res.end(JSON.stringify({ errorMessage: 'Multilogin is unavailable' }));
