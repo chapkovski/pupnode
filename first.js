@@ -15,7 +15,7 @@ http.createServer(async function (req, res) {
         console.debug('did we get the browser?', browser.isConnected())
         const page = await browser.newPage();
         console.debug('NEW PAGE GOT', page.url())
-        const liResp = await page.goto('https://linkedin.com');
+        const liResp = await page.goto('https://example.com');
         await page.waitForNavigation();
         console.debug('DO WE GET SOMOETHING FROM LIRESP', liResp.url())
         res.writeHead(200, { 'Content-Type': 'text/plain' });
